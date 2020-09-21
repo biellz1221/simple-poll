@@ -1,7 +1,6 @@
 const { users } = require('../db/db');
 const { userSchema } = require('../schemas/schemas');
 const { nanoid } = require('nanoid');
-const auth = require('../middlewares/auth');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
