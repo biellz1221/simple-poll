@@ -12,10 +12,10 @@ const pollSchema = yup.object().shape({
 		.matches(/[\w\-]/i)
 		.required(),
 	name: yup.string().required(),
-	created: yup.date().required(),
+	created: yup.number().required(),
 	createdBy: yup.string().trim().required(),
 	userCanType: yup.boolean(),
-	totalVotes: yup.number().positive().integer(),
+	totalVotes: yup.number().integer(),
 	options: yup.array().of(
 		yup.object().shape({
 			id: yup
@@ -24,8 +24,8 @@ const pollSchema = yup.object().shape({
 				.matches(/[\w\-]/i)
 				.required(),
 			text: yup.string().required(),
-			votes: yup.number().integer().positive(),
-			order: yup.number().integer().positive(),
+			votes: yup.number().integer(),
+			order: yup.number().integer(),
 		})
 	),
 });
