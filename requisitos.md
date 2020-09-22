@@ -16,13 +16,13 @@
 -   [OK] [Post] Login User
 -   [OK] [Post] Logout User
 -   [OK] [Post] Logout All User Sessions
--   [Post] Create Poll
+-   [OK] [Post] Create Poll
 -   [Post] Vote
 -   [Patch] Edit Poll
 -   [OK] [Delete] Delete User
--   [Delete] Delete Poll
--   [Get] All Polls By User
--   [Get] Poll by Id
+-   [OK] [Delete] Delete Poll
+-   [OK] [Get] All Polls By User
+-   [OK] [Get] Poll by Id
 
 #Páginas
 

@@ -63,7 +63,49 @@ module.exports = {
 	},
 	async vote(req, res) {},
 	async edit(req, res) {},
-	async deletePoll(req, res) {},
-	async pollsByUser(req, res) {},
-	async pollById(req, res) {},
+	async deletePoll(req, res) {
+		const { pid } = req.params;
+		if (!pid) return res.status(500).json({ error: 'É necessário informar o Poll ID (pid) ao fazer a requisição' });
+		const user = req.user;
+		try {
+			const found = await polls.findOne({ pid: pid });
+			if (!found) return res.status(404).json({ error: 'Enquete não encontrada' });
+			if (found.createdBy === user.uid) {
+				await polls.remove(found);
+				res.status(200).json({
+					msg: 'Enquete apagada com sucesso',
+					found,
+				});
+			} else {
+				res.status(403).json({
+					msg: 'Você não pode apagar enquetes de outros usuários',
+				});
+			}
+		} catch (error) {
+			console.log(error);
+			res.status(500).json(error);
+		}
+	},
+	async pollsByUser(req, res) {
+		const user = req.user;
+		try {
+			const results = await polls.find({ createdBy: user.uid });
+			res.status(200).json(results);
+		} catch (error) {
+			console.log(error);
+			res.status(500).json(error);
+		}
+	},
+	async pollById(req, res) {
+		const { pid } = req.params;
+		if (!pid) return res.status(500).json({ error: 'É necessário informar o Poll ID (pid) ao fazer a requisição' });
+		try {
+			const found = await polls.findOne({ pid: pid });
+			if (!found) return res.status(404).json({ error: 'Enquete não encontrada' });
+			res.status(200).json(found);
+		} catch (error) {
+			console.log(error);
+			res.status(500).json(error);
+		}
+	},
 };

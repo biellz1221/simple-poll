@@ -17,10 +17,10 @@ router.delete('/user/delete', UserController.deleteUser);
 // Rotas de Enquete - Poll Routes
 
 router.get('/poll/all', auth, PollController.pollsByUser);
-router.get('/poll/:id', auth, PollController.pollById);
+router.get('/poll/:pid', PollController.pollById);
 router.post('/poll/new', auth, PollController.create);
-router.post('/poll/:id/vote/:optionid', PollController.vote);
+router.post('/poll/:pid/vote/:optionid', PollController.vote);
 router.patch('/poll/:id/edit', auth, PollController.edit);
-router.delete('/poll/:id', auth, PollController.deletePoll);
+router.delete('/poll/:pid', auth, PollController.deletePoll);
 
 module.exports = router;
