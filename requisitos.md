@@ -1,14 +1,14 @@
 #Sistema de Cadastro de Enquetes
 
--   Usuário não necessita logar para responder
+-   [OK] Usuário não necessita logar para responder
 -   Pode aceitar respostas únicas por e-mail
--   Administrador deve poder cadastrar enquetes
--   Cada enquete deve ter seu próprio conjunto de opções
--   Deve ser possível adicionar uma opção "Outro" para que o usuário digite
--   O Administrador deve poder ver os resultados da enquete em forma de relatório
+-   [OK] Usuário Logado deve poder cadastrar enquetes
+-   [OK] Cada enquete deve ter seu próprio conjunto de opções
+-   [OK] Deve ser possível adicionar uma opção "Outro" para que o usuário digite
+-   O usuário logado deve poder ver os resultados da enquete em forma de relatório
 -   Deve ser possível a enquete estar "aberta" ou "fechada"
--   Usuário administrador só pode ter acesso aos dados das enquetes que ele mesmo criou
--   Uma vez criada a enquete, caso já haja votos, não será possível alterar as opções
+-   [OK] Usuário logado só pode ter acesso aos dados das enquetes que ele mesmo criou
+-   [OK] Uma vez criada a enquete, caso já haja votos, não será possível alterar as opções
 
 #Rotas
 
@@ -39,7 +39,7 @@
     -   id: string
     -   name: string
     -   slug: string (slugify name)
-    -   created: date
+    -   created: date (in milliseconds)
     -   createdBy: string => currentUser.id
     -   userCanType?: boolean
     -   totalVotes?: number
