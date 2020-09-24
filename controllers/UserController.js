@@ -37,7 +37,6 @@ module.exports = {
 		const { email, password } = req.body;
 		const user = await users.findOne({ email });
 		if (!user) {
-			//throw new Error({ error: 'Invalid Login Email' });
 			res.status(500).json({
 				error: 'Usuário não encontrado',
 			});

@@ -17,9 +17,8 @@ module.exports = {
 
 			options.forEach((option) => {
 				option.id = nanoid(10).toLowerCase();
-				console.log(option);
+				option.votes = 0;
 			});
-			console.log('idOpt', options);
 			try {
 				pollSchema.validate({
 					pid,
@@ -109,12 +108,16 @@ module.exports = {
 				});
 			try {
 				const pollToVote = await polls.findOne({ pid: pid });
+				if (!pollToVote.userCanType)
+					return res.status(500).json({
+						error: 'Você não pode emitir uma opinião diferente nesta enquete.',
+					});
 				if (!pollToVote.customVotes) {
 					await polls.findOneAndUpdate(
 						{ pid: pid },
 						{
 							$set: {
-								customVotes: [customVote],
+								customVotes: [customVote], // cria o campo com o primeiro valor dentro de um Array
 							},
 						}
 					);
