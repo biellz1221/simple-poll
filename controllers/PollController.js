@@ -61,8 +61,107 @@ module.exports = {
 			});
 		}
 	},
-	async vote(req, res) {},
-	async edit(req, res) {},
+	async vote(req, res) {
+		const { pid, optionid } = req.params;
+
+		if (optionid != 'other') {
+			try {
+				const pollToVote = await polls.findOne({
+					$and: [{ pid: pid }, { options: { $elemMatch: { id: optionid } } }],
+				});
+				if (!pollToVote)
+					return res.status(404).json({
+						error: 'Enquete não encontrada',
+					});
+
+				let addVoteToPoll = pollToVote.totalVotes + 1;
+				let optionToVote = pollToVote.options.filter((option) => {
+					return option.id === optionid;
+				});
+				let addVoteToOption = optionToVote[0].votes + 1;
+
+				await polls.findOneAndUpdate(
+					{ pid: pid },
+					{
+						$set: {
+							totalVotes: addVoteToPoll,
+						},
+					}
+				);
+
+				await polls.update({ options: { $elemMatch: { id: optionid } } }, { $set: { 'options.$.votes': addVoteToOption } }, { arrayFilter: [{ 'option.id': optionid }], multi: true });
+
+				const voted = await polls.findOne({ pid: pid });
+
+				res.status(200).json({
+					msg: 'Voto computado com sucesso',
+					voted,
+				});
+			} catch (error) {
+				console.log(error);
+				res.status(500).json(error);
+			}
+		} else {
+			const { customVote } = req.body;
+			if (!customVote)
+				return res.status(500).json({
+					error: 'Você não pode votar em branco.',
+				});
+			try {
+				const pollToVote = await polls.findOne({ pid: pid });
+				if (!pollToVote.customVotes) {
+					await polls.findOneAndUpdate(
+						{ pid: pid },
+						{
+							$set: {
+								customVotes: [customVote],
+							},
+						}
+					);
+				} else {
+					let newCustomVotes = pollToVote.customVotes;
+					newCustomVotes.push(customVote);
+					console.log('new custom', newCustomVotes);
+					await polls.findOneAndUpdate(
+						{ pid: pid },
+						{
+							$set: {
+								customVotes: newCustomVotes,
+							},
+						}
+					);
+				}
+				const voted = await polls.findOne({ pid: pid });
+
+				res.status(200).json({
+					msg: 'Voto computado com sucesso',
+					voted,
+				});
+			} catch (error) {
+				console.log(error);
+				res.status(500).json(error);
+			}
+		}
+	},
+	async edit(req, res) {
+		const { pid } = req.params;
+		try {
+			const pollToEdit = await polls.findOne({ pid: pid });
+			console.log(pollToEdit);
+			if (pollToEdit.totalVotes != 0)
+				return res.status(403).json({
+					error: 'Você não pode editar uma enquete que já possui votos computados.',
+				});
+			const edited = await polls.findOneAndUpdate({ pid: pid }, { $set: req.body });
+			res.status(203).json({
+				msg: 'Enquete editada com sucesso',
+				edited,
+			});
+		} catch (error) {
+			console.log(error);
+			res.status(500).json(error);
+		}
+	},
 	async deletePoll(req, res) {
 		const { pid } = req.params;
 		if (!pid) return res.status(500).json({ error: 'É necessário informar o Poll ID (pid) ao fazer a requisição' });

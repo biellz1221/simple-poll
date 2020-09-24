@@ -17,8 +17,8 @@
 -   [OK] [Post] Logout User
 -   [OK] [Post] Logout All User Sessions
 -   [OK] [Post] Create Poll
--   [Post] Vote
--   [Patch] Edit Poll
+-   [OK] [Patch] Vote
+-   [OK] [Patch] Edit Poll
 -   [OK] [Delete] Delete User
 -   [OK] [Delete] Delete Poll
 -   [OK] [Get] All Polls By User
