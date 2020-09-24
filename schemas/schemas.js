@@ -15,6 +15,7 @@ const pollSchema = yup.object().shape({
 	created: yup.number().required(),
 	createdBy: yup.string().trim().required(),
 	userCanType: yup.boolean(),
+	isOpen: yup.boolean(),
 	totalVotes: yup.number().integer(),
 	options: yup.array().of(
 		yup.object().shape({

@@ -28,6 +28,7 @@ module.exports = {
 					createdBy: req.user.uid,
 					userCanType,
 					totalVotes: 0,
+					isOpen: true,
 					options,
 				});
 				const newPoll = {
@@ -38,6 +39,7 @@ module.exports = {
 					createdBy: req.user.uid,
 					userCanType,
 					totalVotes: 0,
+					isOpen: true,
 					options,
 				};
 
@@ -72,7 +74,10 @@ module.exports = {
 					return res.status(404).json({
 						error: 'Enquete não encontrada',
 					});
-
+				if (!pollToVote.isOpen)
+					return res.status(403).json({
+						error: 'Esta enquete está fechada',
+					});
 				let addVoteToPoll = pollToVote.totalVotes + 1;
 				let optionToVote = pollToVote.options.filter((option) => {
 					return option.id === optionid;
@@ -108,6 +113,10 @@ module.exports = {
 				});
 			try {
 				const pollToVote = await polls.findOne({ pid: pid });
+				if (!pollToVote.isOpen)
+					return res.status(403).json({
+						error: 'Esta enquete está fechada',
+					});
 				if (!pollToVote.userCanType)
 					return res.status(500).json({
 						error: 'Você não pode emitir uma opinião diferente nesta enquete.',
@@ -124,7 +133,6 @@ module.exports = {
 				} else {
 					let newCustomVotes = pollToVote.customVotes;
 					newCustomVotes.push(customVote);
-					console.log('new custom', newCustomVotes);
 					await polls.findOneAndUpdate(
 						{ pid: pid },
 						{

@@ -6,7 +6,7 @@
 -   [OK] Cada enquete deve ter seu próprio conjunto de opções
 -   [OK] Deve ser possível adicionar uma opção "Outro" para que o usuário digite
 -   O usuário logado deve poder ver os resultados da enquete em forma de relatório
--   Deve ser possível a enquete estar "aberta" ou "fechada"
+-   [OK] Deve ser possível a enquete estar "aberta" ou "fechada"
 -   [OK] Usuário logado só pode ter acesso aos dados das enquetes que ele mesmo criou
 -   [OK] Uma vez criada a enquete, caso já haja votos, não será possível alterar as opções
 
