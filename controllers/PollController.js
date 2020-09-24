@@ -2,7 +2,6 @@ const { polls } = require('../db/db');
 const { pollSchema } = require('../schemas/schemas');
 const { nanoid } = require('nanoid');
 const slugify = require('slugify');
-const jwt = require('jsonwebtoken');
 
 module.exports = {
 	create(req, res) {
@@ -45,7 +44,7 @@ module.exports = {
 
 				polls.insert(newPoll);
 
-				res.status(200).json({
+				res.status(201).json({
 					msg: 'Enquete criada com sucesso',
 					newPoll,
 				});

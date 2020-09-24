@@ -27,7 +27,10 @@ module.exports = {
 				tokens: [],
 			};
 			const created = await users.insert(newUser);
-			res.json(created);
+			res.status(201).json({
+				msg: 'Usuário criado com sucesso',
+				created,
+			});
 		} catch (e) {
 			console.log(e);
 			res.status(500).send(e);
@@ -52,7 +55,7 @@ module.exports = {
 		try {
 			const genToken = jwt.sign({ email: user.email }, process.env.JWT_KEY);
 			await users.findOneAndUpdate({ email }, { $push: { tokens: genToken } });
-			res.json({
+			res.status(200).json({
 				msg: 'Token criado com Sucesso. Usuário autenticado.',
 				token: genToken,
 			});
