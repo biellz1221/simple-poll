@@ -53,7 +53,10 @@ module.exports = {
 		try {
 			const genToken = jwt.sign({ email: user.email }, process.env.JWT_KEY);
 			await users.findOneAndUpdate({ email }, { $push: { tokens: genToken } });
-			res.json({ msg: 'Token criado com Sucesso. Usuário autenticado.' });
+			res.json({
+				msg: 'Token criado com Sucesso. Usuário autenticado.',
+				token: genToken,
+			});
 		} catch (e) {
 			console.log(e);
 			res.status(500).send(e);
