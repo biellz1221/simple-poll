@@ -9,7 +9,7 @@ const port = process.env.PORT || 1337;
 
 const app = express();
 
-const staticFileMiddleware = express.static('dist');
+const staticFileMiddleware = express.static('./front/dist');
 
 app.use(staticFileMiddleware);
 
