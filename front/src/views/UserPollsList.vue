@@ -3,9 +3,7 @@
 		<h1><b>Lista de enquetes do usuário</b></h1>
 		<p><router-link to="/polls/new">Adicionar Nova Enquete</router-link></p>
 		<div class="showPolls" v-if="loaded">
-			<div v-for="poll in pollsToShow" :key="poll.pid">
-				{{ poll }}
-			</div>
+			<div v-for="poll in pollsToShow" :key="poll.pid">{{ poll }}<br /><br /></div>
 		</div>
 		<div v-else>Loading...</div>
 	</div>

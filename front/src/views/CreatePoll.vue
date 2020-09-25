@@ -13,7 +13,13 @@
 					<input type="text" name="text" id="text" v-model="optionToInsert.text" />
 					<label for="order">Ordem:</label>
 					<input type="number" name="order" id="order" v-model="optionToInsert.order" />
-					<a href="#" @click.prevent="addOption">Adicionar</a>
+					<a href="#" @click.prevent="addOption">Add Opção</a>
+					<div>
+						Opções:<br />
+						<span v-for="(option, index) in poll.options" :key="index">
+							{{ option }}
+						</span>
+					</div>
 				</div>
 				<button type="submit" :disabled="poll.options.length ? false : true">Criar Enquete</button>
 			</form>
@@ -23,6 +29,7 @@
 </template>
 
 <script>
+	import { api, getToken } from '../../services/api';
 	export default {
 		name: 'CreatePoll',
 		data() {
@@ -47,8 +54,15 @@
 					order: 0,
 				};
 			},
-			createPoll() {
-				console.log('test create poll');
+			async createPoll() {
+				if (!this.poll.name) return alert('Vc precisa dar nome pra sua enquete né...');
+				if (!this.poll.options.length) return alert('Vc precisa dar opções pra sua enquete né...');
+				const res = await api.post('/poll/new', this.poll, {
+					headers: {
+						Authorization: getToken(),
+					},
+				});
+				console.log(res.data);
 			},
 		},
 	};
