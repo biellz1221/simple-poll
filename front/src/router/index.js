@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 
 import Cookies from 'js-cookie';
 
-import Home from '../views/Home.vue';
+// import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import CreateUser from '../views/CreateUser.vue';
 import CreatePoll from '../views/CreatePoll.vue';
@@ -32,14 +32,11 @@ const routes = [
 		name: 'UserPollsList',
 		component: UserPollsList,
 	},
-	{
-		path: '/about',
-		name: 'About',
-		// route level code-splitting
-		// this generates a separate chunk (about.[hash].js) for this route
-		// which is lazy-loaded when the route is visited.
-		component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-	},
+	// {
+	// 	path: '/about',
+	// 	name: 'About',
+	// 	component: () => import('../views/About.vue'),
+	// },
 ];
 
 const router = new VueRouter({
@@ -48,9 +45,11 @@ const router = new VueRouter({
 	routes,
 });
 
+const publicRoutes = ['Login', 'CreateUser'];
+
 router.beforeEach((to, from, next) => {
 	//console.log(isAuthenticated);
-	if (to.name === 'Login') {
+	if (publicRoutes.includes(to.name)) {
 		next();
 	} else {
 		let isAuthenticated = JSON.parse(Cookies.get('pollsloginsession'));

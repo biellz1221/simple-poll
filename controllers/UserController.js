@@ -57,6 +57,7 @@ module.exports = {
 			await users.findOneAndUpdate({ email }, { $push: { tokens: genToken } });
 			res.status(200).json({
 				msg: 'Token criado com Sucesso. Usuário autenticado.',
+				email: user.email,
 				token: genToken,
 			});
 		} catch (e) {

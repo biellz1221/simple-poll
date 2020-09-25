@@ -1,9 +1,29 @@
 <template>
 	<div id="app">
-		<router-view />
+		<MainMenu :key="lo" v-on:loggedout="changeLo" />
+		<router-view v-on:loggedout="changeLo" />
 	</div>
 </template>
+<script>
+	// @ is an alias to /src
+	import MainMenu from './components/MainMenu.vue';
 
+	export default {
+		data() {
+			return {
+				lo: false,
+			};
+		},
+		methods: {
+			changeLo() {
+				this.lo = !this.lo; // forçar o rerender do menu pra exibir ou não opções baseado no status logado ou não do usuário
+			},
+		},
+		components: {
+			MainMenu,
+		},
+	};
+</script>
 <style lang="scss">
 	#app {
 		font-family: Avenir, Helvetica, Arial, sans-serif;
