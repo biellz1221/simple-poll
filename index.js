@@ -9,6 +9,10 @@ const port = process.env.PORT || 1337;
 
 const app = express();
 
+const staticFileMiddleware = express.static('dist');
+
+app.use(staticFileMiddleware);
+
 app.use(
 	helmet({
 		contentSecurityPolicy: false,
