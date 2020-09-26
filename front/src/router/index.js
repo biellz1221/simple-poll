@@ -8,6 +8,7 @@ import Login from '../views/Login.vue';
 import CreateUser from '../views/CreateUser.vue';
 import CreatePoll from '../views/CreatePoll.vue';
 import UserPollsList from '../views/UserPollsList.vue';
+import Vote from '../views/Vote.vue';
 
 Vue.use(VueRouter);
 
@@ -32,6 +33,11 @@ const routes = [
 		name: 'UserPollsList',
 		component: UserPollsList,
 	},
+	{
+		path: '/poll/:id',
+		name: 'Vote',
+		component: Vote,
+	},
 	// {
 	// 	path: '/about',
 	// 	name: 'About',
@@ -45,7 +51,7 @@ const router = new VueRouter({
 	routes,
 });
 
-const publicRoutes = ['Login', 'CreateUser'];
+const publicRoutes = ['Login', 'CreateUser', 'Vote'];
 
 router.beforeEach((to, from, next) => {
 	//console.log(isAuthenticated);
