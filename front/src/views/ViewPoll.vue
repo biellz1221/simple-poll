@@ -2,7 +2,7 @@
 	<div class="editPoll">
 		<div class="boxLogin">
 			<h1>Detalhes da Enquete "{{ pollDetails.name }}"</h1>
-			<button @click.prevent="editPoll" :disabled="!pollDetails.totalVotes ? false : true">Editar</button><br />
+			<button @click.prevent="editPoll" v-if="!pollDetails.totalVotes" :disabled="editing">Editar</button><br />
 			<small v-if="pollDetails.totalVotes">Não pode editar enquete q já teve voto. Manipular votação é feio.</small>
 			<br /><br />
 			<form action="#" @submit.prevent="createPoll">
