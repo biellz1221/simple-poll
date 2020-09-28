@@ -9,7 +9,7 @@
 		"front": "cd front && npm run serve",
 		"dev": "concurrently \"npm run front\" \"npm run back\" ",
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"heroku-postbuild": "cd front && ls"
+		"heroku-postbuild": "cd front && npm run build"
 	},
 	"repository": {
 		"type": "git",
