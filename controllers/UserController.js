@@ -32,7 +32,6 @@ module.exports = {
 				created,
 			});
 		} catch (e) {
-			console.log(e);
 			res.status(500).send(e);
 		}
 	},
@@ -61,7 +60,6 @@ module.exports = {
 				token: genToken,
 			});
 		} catch (e) {
-			console.log(e);
 			res.status(500).send(e);
 		}
 	},
@@ -79,7 +77,6 @@ module.exports = {
 				msg: 'Token invalidado e usuário deslogado com sucesso',
 			});
 		} catch (e) {
-			console.log(e);
 			res.status(500).send(e);
 		}
 	},
@@ -94,7 +91,6 @@ module.exports = {
 				msg: 'Todos os tokens invalidados e usuário deslogado de todas as sessões',
 			});
 		} catch (e) {
-			console.log(e);
 			res.status(500).send(e);
 		}
 	},

@@ -34,7 +34,6 @@
 			async createUser() {
 				try {
 					const res = await api.post('/user/new', this.newUser);
-					console.log(res.data);
 					this.newUser = {
 						name: '',
 						email: '',
@@ -43,7 +42,7 @@
 					alert('Usuário criado com suceso');
 					this.$router.push('/');
 				} catch (error) {
-					console.log(error);
+					alert(error);
 				}
 			},
 		},

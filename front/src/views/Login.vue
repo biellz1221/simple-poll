@@ -45,8 +45,6 @@
 					}),
 					{ expires: 7 }
 				);
-				//console.log(Cookies.get('pollsloginsession'));
-
 				this.$emit('loggedout', true);
 				this.$router.push('/user/polls');
 			},

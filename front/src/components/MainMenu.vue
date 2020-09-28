@@ -40,7 +40,6 @@
 						},
 					}
 				).then((res) => {
-					//console.log(res.data);
 					Cookies.remove('pollsloginsession');
 					this.$emit('loggedout', true);
 					this.$router.push('/');

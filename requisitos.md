@@ -1,14 +1,14 @@
 #Sistema de Cadastro de Enquetes
 
 -   [OK] Usuário não necessita logar para responder
--   Pode aceitar respostas únicas por e-mail
 -   [OK] Usuário Logado deve poder cadastrar enquetes
 -   [OK] Cada enquete deve ter seu próprio conjunto de opções
 -   [OK] Deve ser possível adicionar uma opção "Outro" para que o usuário digite
--   O usuário logado deve poder ver os resultados da enquete em forma de relatório
 -   [OK] Deve ser possível a enquete estar "aberta" ou "fechada"
 -   [OK] Usuário logado só pode ter acesso aos dados das enquetes que ele mesmo criou
 -   [OK] Uma vez criada a enquete, caso já haja votos, não será possível alterar as opções
+-   Pode aceitar respostas únicas por e-mail
+-   O usuário logado deve poder ver os resultados da enquete em forma de relatório
 
 #Rotas
 

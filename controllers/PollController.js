@@ -49,13 +49,11 @@ module.exports = {
 					newPoll,
 				});
 			} catch (error) {
-				console.log(error);
 				res.status(500).json({
 					error: error,
 				});
 			}
 		} else {
-			console.log('Token Inválido');
 			res.status(403).json({
 				error: 'Este token é inválido para este usuário',
 			});
@@ -101,7 +99,6 @@ module.exports = {
 					voted,
 				});
 			} catch (error) {
-				console.log(error);
 				res.status(500).json(error);
 			}
 		} else {
@@ -148,7 +145,6 @@ module.exports = {
 					voted,
 				});
 			} catch (error) {
-				console.log(error);
 				res.status(500).json(error);
 			}
 		}
@@ -157,7 +153,6 @@ module.exports = {
 		const { pid } = req.params;
 		try {
 			const pollToEdit = await polls.findOne({ pid: pid });
-			console.log(pollToEdit);
 			if (pollToEdit.totalVotes != 0)
 				return res.status(403).json({
 					error: 'Você não pode editar uma enquete que já possui votos computados.',
@@ -168,7 +163,6 @@ module.exports = {
 				edited,
 			});
 		} catch (error) {
-			console.log(error);
 			res.status(500).json(error);
 		}
 	},
@@ -191,7 +185,6 @@ module.exports = {
 				});
 			}
 		} catch (error) {
-			console.log(error);
 			res.status(500).json(error);
 		}
 	},
@@ -201,7 +194,6 @@ module.exports = {
 			const results = await polls.find({ createdBy: user.uid });
 			res.status(200).json(results);
 		} catch (error) {
-			console.log(error);
 			res.status(500).json(error);
 		}
 	},
@@ -213,7 +205,6 @@ module.exports = {
 			if (!found) return res.status(404).json({ error: 'Enquete não encontrada' });
 			res.status(200).json(found);
 		} catch (error) {
-			console.log(error);
 			res.status(500).json(error);
 		}
 	},

@@ -1,12 +1,12 @@
 <template>
 	<div class="login">
 		<div class="boxLogin">
-			<p>Criar Enquete</p>
+			<h1>Criar Enquete</h1>
 			<form action="#" @submit.prevent="createPoll">
 				<label for="name">Nome:</label>
 				<input required type="text" name="name" id="name" v-model="poll.name" /><br />
 				<label for="usercantype">Ativar opção "Outro"?</label>
-				<input type="checkbox" name="usercantype" id="usercantype" autocomplete="username" v-model="poll.userCanType" /><br /><br />
+				<input type="checkbox" name="usercantype" id="usercantype" v-model="poll.userCanType" /><br /><br />
 				<label>Opções:</label>
 				<div class="optionToAdd">
 					<label for="text">Opção:</label>
@@ -18,6 +18,7 @@
 						Opções Já Adicionadas:<br />
 						<span v-for="(option, index) in poll.options" :key="index">
 							{{ option }}
+							<a href="#" @click.prevent="removeOption(index)">Remover</a>
 						</span>
 					</div>
 				</div>
@@ -55,6 +56,9 @@
 					order: 0,
 				};
 			},
+			removeOption(index) {
+				this.poll.options.splice(index, 1);
+			},
 			async createPoll() {
 				if (!this.poll.name) return alert('Vc precisa dar nome pra sua enquete né...');
 				if (!this.poll.options.length) return alert('Vc precisa dar opções pra sua enquete né...');
@@ -64,7 +68,6 @@
 							Authorization: getToken(),
 						},
 					});
-					console.log(res.data);
 					this.poll = {
 						name: '',
 						userCanType: false,
@@ -72,7 +75,7 @@
 					};
 					alert('Enquete criada com sucesso');
 				} catch (error) {
-					console.log(error);
+					alert(error);
 				}
 			},
 		},

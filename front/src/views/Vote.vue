@@ -31,24 +31,21 @@
 		},
 		methods: {
 			async vote(optionId) {
-				console.log(optionId);
 				if (optionId === 'other') {
 					try {
 						const res = await api.patch(`/poll/${this.$route.params.id}/vote/other`, {
 							customVote: this.setCustomVote,
 						});
-						console.log(res);
 						alert('voto computado com sucesso');
 					} catch (error) {
-						return console.log(error);
+						return alert(error);
 					}
 				} else {
 					try {
 						const res = await api.patch(`/poll/${this.$route.params.id}/vote/${optionId}`);
-						console.log(res);
 						alert('voto computado com sucesso');
 					} catch (error) {
-						return console.log(error);
+						return alert(error);
 					}
 				}
 				this.voted = true;
@@ -61,6 +58,9 @@
 				})
 				.then(() => {
 					this.loaded = true;
+				})
+				.catch((error) => {
+					alert(`Algo deu errado: ${error}`);
 				});
 		},
 	};
