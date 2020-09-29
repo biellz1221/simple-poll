@@ -1,23 +1,40 @@
 <template>
-	<div class="login">
-		<div class="boxLogin">
-			<h1>Faça Login</h1>
-			<form action="#" @submit.prevent="loginUser">
-				<label for="email">Email:</label>
-				<input required type="email" name="email" id="email" autocomplete="username" v-model="user.email" /><br />
-				<label for="senha">Senha:</label>
-				<input required :type="showPass ? 'text' : 'password'" name="showpass" id="showpass" autocomplete="password" v-model="user.password" />
-				<br />
-				<label for="showpass">Mostrar senha?</label>
-				<input type="checkbox" name="showPass" id="showPass" v-model="showPass" />
-				<br />
-				<button type="submit">Entrar</button><br />
-				<router-link to="/users/new">Criar novo usuário</router-link>
-			</form>
+	<div class="login columns is-centered">
+		<div class="column is-3">
+			<div class="box">
+				<h1 class="title is-4 has-text-centered	">Login</h1>
+				<form action="#" @submit.prevent="loginUser">
+					<div class="field">
+						<label class="label" for="email">Email:</label>
+						<input class="input" required type="email" name="email" id="email" autocomplete="username" v-model="user.email" /><br />
+					</div>
+					<div class="field">
+						<label class="label" for="senha">Senha:</label>
+						<input class="input" required :type="showPass ? 'text' : 'password'" name="showpass" id="showpass" autocomplete="password" v-model="user.password" />
+					</div>
+					<div class="field">
+						<label for="showpass" class="checkbox">
+							<input type="checkbox" name="showPass" id="showPass" v-model="showPass" />
+							Mostrar senha?
+						</label>
+					</div>
+					<button class="button is-primary is-fullwidth" type="submit">Entrar</button>
+					<!-- <router-link to="/users/new">Criar novo usuário</router-link> -->
+				</form>
+			</div>
 		</div>
 	</div>
 </template>
-
+<style lang="scss">
+	.login {
+		.column {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			height: calc(100vh - 3.25rem);
+		}
+	}
+</style>
 <script>
 	import { api } from '../../services/api';
 	import Cookies from 'js-cookie';

@@ -1,13 +1,54 @@
 <template>
-	<nav class="menuPrincipal">
-		<ul v-if="isLoggedIn">
-			<li><router-link to="/user/polls">Minhas Enquetes</router-link></li>
-			<li><router-link to="/polls/new">Criar Enquete</router-link></li>
-			<li><a href="#" @click.prevent="logout(false)">Logout</a></li>
-			<li><a href="#" @click.prevent="logout(true)">Logout All</a></li>
-		</ul>
+	<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+		<div class="navbar-brand">
+			<router-link class="navbar-item" :to="isLoggedIn ? '/user/polls' : '/'">
+				<img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
+			</router-link>
+
+			<a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+			</a>
+		</div>
+
+		<div id="navbarBasicExample" class="navbar-menu">
+			<div class="navbar-start" v-if="isLoggedIn">
+				<router-link class="navbar-item" to="/user/polls">Minhas Enquetes</router-link>
+				<router-link class="navbar-item" to="/polls/new">Criar Enquete</router-link>
+			</div>
+
+			<div class="navbar-end" v-if="isLoggedIn">
+				<div class="navbar-item">
+					<div class="buttons">
+						<a href="#" @click.prevent="logout(false)" class="button is-primary is-outlined">
+							Sair
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="navbar-end" v-else>
+				<div class="navbar-item">
+					<div class="buttons">
+						<router-link to="/users/new" class="button is-primary">
+							<strong>Criar Conta</strong>
+						</router-link>
+						<router-link to="/" class="button button is-primary is-outlined">
+							Entrar
+						</router-link>
+					</div>
+				</div>
+			</div>
+		</div>
 	</nav>
 </template>
+
+<style lang="scss">
+	.navbar {
+		border-bottom: 1px solid #efefef;
+	}
+</style>
 
 <script>
 	import Cookies from 'js-cookie';
