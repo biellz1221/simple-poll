@@ -88,6 +88,15 @@
 					</div>
 				</div>
 			</div>
+			<h2 class="title is-4">Votos Personalizados:</h2>
+			<div class="content" v-if="!editing && pollDetails.customVotes">
+				<ul>
+					<li v-for="(customVote, index) in pollDetails.customVotes" :key="index">
+						{{ customVote }}
+					</li>
+				</ul>
+			</div>
+
 			<div class="mb-5 buttons is-centered">
 				<button class="button is-primary" v-if="editing" :disabled="comparePolls" @click.prevent="saveEdit">Salvar Alterações</button>
 				<button class="button is-danger" @click.prevent="cancelEdit" v-if="editing">Cancelar</button>
