@@ -79,6 +79,7 @@
 		methods: {
 			addOption() {
 				if (!this.optionToInsert.text) return alert('Você precisa inserir um texto para a opção');
+				if (!this.optionToInsert.order) return alert('Você precisa inserir a ordem da opção');
 				this.poll.options.push(this.optionToInsert);
 				this.optionToInsert = {
 					text: '',

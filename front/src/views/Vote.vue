@@ -1,22 +1,37 @@
 <template>
 	<div class="pollsList">
-		<div class="showPolls" v-if="loaded">
-			<h1>
-				<b>Votando na Enquete "{{ pollToVote.name }}"</b>
-			</h1>
-			<div v-for="option in pollToVote.options" :key="option.id">
-				<span>{{ option.text }}</span> &nbsp;
-				<button @click="vote(option.id)" :disabled="voted" v-if="pollToVote.isOpen">Votar</button>
-			</div>
-			<div v-if="pollToVote.userCanType">
-				<span><input type="text" v-model="setCustomVote" placeholder="Outro"/></span> &nbsp;
-				<button @click="vote('other')" :disabled="voted" v-if="pollToVote.isOpen">Votar</button>
+		<div class="container" v-if="loaded">
+			<h1 class="title is-3">Votando na Enquete "{{ pollToVote.name }}"</h1>
+			<table class="table votingTable">
+				<tbody>
+					<tr v-for="option in pollToVote.options" :key="option.id">
+						<td>{{ option.text }}</td>
+						<td><button class="button is-primary is-outlined is-small" @click="vote(option.id)" :disabled="voted" v-if="pollToVote.isOpen">Votar</button></td>
+					</tr>
+					<tr v-if="pollToVote.userCanType">
+						<td>
+							<input class="input" type="text" v-model="setCustomVote" placeholder="Outro" />
+						</td>
+						<td><button class="button is-primary is-outlined is-small" @click="vote('other')" :disabled="voted" v-if="pollToVote.isOpen">Votar</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div v-else class="columns is-centered">
+			<div class="column is-half">
+				<progress class="progress is-small is-primary" max="100">15%</progress>
 			</div>
 		</div>
-		<div v-else>Loading...</div>
 	</div>
 </template>
-
+<style lang="scss">
+	.votingTable {
+		td {
+			padding: 0.75rem;
+			vertical-align: middle;
+		}
+	}
+</style>
 <script>
 	import { api } from '../../services/api';
 	export default {

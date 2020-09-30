@@ -117,6 +117,16 @@ module.exports = {
 					return res.status(500).json({
 						error: 'Você não pode emitir uma opinião diferente nesta enquete.',
 					});
+
+				let addVoteToPoll = pollToVote.totalVotes + 1;
+				await polls.findOneAndUpdate(
+					{ pid: pid },
+					{
+						$set: {
+							totalVotes: addVoteToPoll,
+						},
+					}
+				);
 				if (!pollToVote.customVotes) {
 					await polls.findOneAndUpdate(
 						{ pid: pid },
